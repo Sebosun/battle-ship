@@ -1,23 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
 
 function App() {
+
+
+  const shipFactory = (lenght) => {
+    // TODO create an array with Y*x false, representing hp
+    let hp = [false, false, false]
+    let hit = (position) => hp[position] = true;
+    let sunk = false;
+    // checks if the ship is sunk, the ship is sunk if hp array is full of true
+    let isSunk = () => console.log(sunk)
+    return { hit, sunk }
+  }
+
+  // HP [false, false, false]
+  // hit() takes a number and marks a position as hit
+
+  let dupa = shipFactory(1);
+  console.log(dupa);
+
+  dupa.hit()
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
     </div>
   );
 }
