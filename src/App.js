@@ -1,25 +1,16 @@
 import './App.css';
+import './factories/shipFactory'
+import ShipFactory from './factories/shipFactory.js';
 
 function App() {
 
+  // console.log(ShipFactory);
+  // let ship1 = ShipFactory(2);
 
-  const shipFactory = (lenght) => {
-    // TODO create an array with Y*x false, representing hp
-    let hp = [false, false, false]
-    let hit = (position) => hp[position] = true;
-    let sunk = false;
-    // checks if the ship is sunk, the ship is sunk if hp array is full of true
-    let isSunk = () => console.log(sunk)
-    return { hit, sunk }
-  }
+  // ship1.hit(0);
+  // ship1.hit(0);
+  // console.log(ship1.isSunk())
 
-  // HP [false, false, false]
-  // hit() takes a number and marks a position as hit
-
-  let dupa = shipFactory(1);
-  console.log(dupa);
-
-  dupa.hit()
 
   return (
     <div className="App">
