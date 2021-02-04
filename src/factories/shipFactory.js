@@ -1,19 +1,15 @@
 const ShipFactory = (len) => {
-
-  // this sould create an array of len lenght, filling it with falses
-  // false represents no damage, true represents damage
-  let hp = Array.from({length: len}, i => i = false);
+  let health = Array.from({length: len}, i => i = false);
   let lenght = len; 
-
   const hit = (number) => {
-    hp[number] = true;
+    health[number] = true;
   }
 
   const isSunk = () => {
     let isArrTrue = (value) => value;
-    //this should return true if all are true and false if at least one is false
-    return hp.every(isArrTrue);
+    return health.every(isArrTrue);
   }
+
   return {lenght, hit, isSunk}
 }
 
