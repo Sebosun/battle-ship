@@ -1,4 +1,4 @@
-const ShipFactory = require('./shipFactory')
+const ShipFactory = require('../shipFactory')
 
 test('tests if lenght property returned by new ship matches the lenght given', () => {
     let newShip = ShipFactory(3);
