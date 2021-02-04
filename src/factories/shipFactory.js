@@ -1,6 +1,7 @@
 const ShipFactory = (len) => {
   let health = Array.from({length: len}, i => i = false);
-  let lenght = len; 
+  let length = len; 
+
   const hit = (number) => {
     health[number] = true;
   }
@@ -10,7 +11,7 @@ const ShipFactory = (len) => {
     return health.every(isArrTrue);
   }
 
-  return {lenght, hit, isSunk}
+  return {length, health, hit, isSunk}
 }
 
 // What i want shipfactry to 
