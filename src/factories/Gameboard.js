@@ -1,25 +1,52 @@
 const GameboardFactory = (x_axis, y_axis) => { 
 
     let board = generateArray(y_axis, x_axis);
-    
-    return { board };
+
+    let placeShip = (position_y, position_x, length, mode) => {
+        let pos_y = position_y
+        let pos_x = position_x
+        if (mode == 0){
+            for (let i = 0; i < length; i++) {
+                board[pos_y][pos_x] = 1;
+                pos_x += 1
+            }
+        }
+        else if (mode == 1) {
+            for (let i = 0; i < length; i++) {
+                board[pos_y][pos_x] = 1;
+                pos_y += 1
+            }  
+        }
+        else {
+            return -1
+        }
+        
+    }
+
+    return { board, placeShip };
 }
 
 
+
 //generates an 2d array 
-let generateArray = (vertical, horizontal) => {
+const generateArray = (vertical, horizontal) => {
     let arr = Array.apply(null, Array(vertical))
     arr.forEach((element ,index) => arr[index] = genEmptyElems(horizontal))
     return arr;
 };
 
 //returns an array filled with empty strings based on number received
-let genEmptyElems = (horizontal) => {
+const genEmptyElems = (horizontal) => {
     let newArr = Array.apply(null, Array(horizontal));
     newArr.forEach( (element, index) => {
-        newArr[index] = ''
+        newArr[index] = 0
     });
     return newArr;
 };
 
+
+const addShip = 
+
 module.exports = GameboardFactory;
+
+
