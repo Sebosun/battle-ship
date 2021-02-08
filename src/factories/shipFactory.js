@@ -1,6 +1,6 @@
 const ShipFactory = (len) => {
   let health = Array.from({length: len}, i => i = false);
-  let length = len; 
+  const length = len; 
 
   const hit = (number) => {
     health[number] = true;

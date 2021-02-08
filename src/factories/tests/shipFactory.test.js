@@ -10,7 +10,7 @@ test('tests if lenght property returned by new ship matches the lenght given', (
     expect(newShip.length).toBe(2)
 });
 
-test('checks if the hit property works correctly', () => {
+xtest('checks if the hit property works correctly', () => {
     let newShip = ShipFactory(3);
     newShip.hit(1);
     expect(newShip.health).toStrictEqual([false,true,false]);
