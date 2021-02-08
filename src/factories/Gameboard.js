@@ -1,26 +1,25 @@
 const GameboardFactory = (x_axis, y_axis) => { 
+    let ships = []
 
     let board = generateArray(y_axis, x_axis);
 
-    let placeShip = (position_y, position_x, length, mode) => {
+    let placeShip = (position_y, position_x, shipObject, mode) => {
+        // thinking of doing input verification before even calling this method 
+        
         let pos_y = position_y
         let pos_x = position_x
-        if (mode == 0){
-            for (let i = 0; i < length; i++) {
+
+        if (mode === 0){
+            for (let i = 0; i < shipObject.length; i++) {
                 board[pos_y][pos_x] = 1;
                 pos_x += 1
             }
-        }
-        else if (mode == 1) {
-            for (let i = 0; i < length; i++) {
+        } else if (mode === 1) {
+            for (let i = 0; i < shipObject.length; i++) {
                 board[pos_y][pos_x] = 1;
                 pos_y += 1
             }  
-        }
-        else {
-            return -1
-        }
-        
+        } else { return -1 }
     }
 
     return { board, placeShip };
@@ -45,7 +44,6 @@ const genEmptyElems = (horizontal) => {
 };
 
 
-const addShip = 
 
 module.exports = GameboardFactory;
 

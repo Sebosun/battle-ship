@@ -18,7 +18,7 @@ test('checks if the hit property works correctly', () => {
 
 test('checks if the isSunk returns false when the ship shoud be alive', () => {
     let newShip = ShipFactory(2);
-    newShip.hit(1);
+newShip.hit(1);
     expect(newShip.isSunk()).toBe(false);
 });
 
