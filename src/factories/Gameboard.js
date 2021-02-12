@@ -1,32 +1,14 @@
 const ShipFactory = require("./shipFactory");
 
-
-
-// No.	Class of ship	Size
-// 1	Carrier	5
-// 2	Battleship	4
-// 3	Cruiser	3
-// 4	Submarine	3
-// 5	Destroyer	2
-
-
-// let carrier = ShipFactory(5);
-// let battleship = ShipFactory(4);
-// let cruiser = ShipFactory(3);
-// let submarine = ShipFactory(3);
-// let destroyer = ShipFactory(2);
-
 const Gameboard = (x_axis, y_axis) => {
     let ships = []
 
     let board = generateArray(y_axis, x_axis);
 
 
-
-    /// TODO: FIRST THING WHEN YOU GET BACK IS TO CHANGE DIRECTION TO A STRING
-    // SO ITS NOT SO CONFUSING
     let placeShip = (position_y, position_x, ship, direction) => {
 
+        
         // thinking of doing input verification before even calling this method 
         // this is doubtful, makes me anxious rethink
 
@@ -35,20 +17,19 @@ const Gameboard = (x_axis, y_axis) => {
             position_y,
             ship,
             direction
+
         });
-
-
 
         // at the initialization here, note lenght, direction and set up pos_y max, posy_y min etc
         let pos_y = position_y;
         let pos_x = position_x;
         
-        if (direction === 0){
+        if (direction === 'horizontal'){
             for (let i = 0; i < ship.length; i++) {
                 board[pos_y][pos_x] = "X";
                 pos_x += 1;
             }
-        } else if (direction === 1) {
+        } else if (direction === 'vertical') {
             for (let i = 0; i < ship.length; i++) {
                 board[pos_y][pos_x] = "X";
                 pos_y += 1;
@@ -59,23 +40,19 @@ const Gameboard = (x_axis, y_axis) => {
 
 
     const receiveAttack = (atkPos_y, atkPos_x) => {
-
+        let shipUnderAttack = determineShip(atkPos_y, atkPos_y, ships);
         if (board[atkPos_y][atkPos_x] === "X") {
-            if (ships[0].direction === 0) {  
+            if (shipUnderAttack.direction == 'horizontal') {  
                 //compare ships starting position with the attack position
                 // so     // [Y, 4] // [Y, 3] - [Y, 6]
-                ships[0].ship.hit( atkPos_x - ships[0].position_x );
-                console.log(ships[0])
-                console.log('dupa')
+                shipUnderAttack.ship.hit( atkPos_x - shipUnderAttack.position_x );
             } else {
-                ships[0].ship.hit( atkPos_y - ships[0].position_y );
-                console.log(ships[0])
-                console.log(`${atkPos_y} bitch` )
+                shipUnderAttack.ship.hit( atkPos_y - shipUnderAttack.position_y );
             }
         }
-        // else{
-        //     board[atkPos_y][atkPos_x] = "O";
-        // }
+        else {
+            board[atkPos_y][atkPos_x] = "O";
+        }
     }
 
     return { board, placeShip, receiveAttack, ships };
@@ -89,7 +66,80 @@ const checkAttackPos = (atkPos_x) =>{
 }
 
 // let newShip = ShipFactory(10);
+const determineShip = (atkPos_y, atkPos_x, ships) => {
+    // [0, 4]
+    // [Y, 3] - [Y, 6]
+    // loop over every ship
+    // use array.prototype.reduce to loop over each item and return only when it matches the pattern
+    // if all goes well, it should return only 1 item 
 
+    //    console.log(array1.reduce((accumulator, currentValue) => accumulator + currentValue));
+    let correctShip = ships.reduce((acc, currentShip) => { 
+        console.log(acc, currentShip)
+        console.log(`Reading cur ship pos ${currentShip.direction}`)
+        if (currentShip.direction == 'horizontal'){
+            let posY = currentShip.position_y;
+            let posX = [];
+            
+            for (let i = 0; i < currentShip.ship.length; i++) posX.push(i + currentShip.position_x)
+            console.log(`PosX:  ${posX} PosY: ${posY} atkPosY: ${atkPos_y} atkPosX: ${atkPos_x}`)
+            // It seems like the way i check if the ship is being attacked is wrong
+            // cuz it doesnt even get to this if
+            if (atkPos_y == posY && posX.includes(atkPos_x)){
+                acc.push(currentShip)
+                return acc
+            } else {
+                return acc
+            }
+        } else if (currentShip.direction == 'vertical'){
+            let posX = currentShip.position_x;
+            // posY is an array of all Y places the ship occupies
+            let posY = [];
+            
+            for (let i = 0; i < currentShip.ship.length; i++) posY.push(i + currentShip.position_y)
+
+            console.log(`PosX:  ${posX} PosY: ${posY} atkPosY: ${atkPos_y} atkPosX: ${atkPos_x}`)
+            if (atkPos_x == posX && posY.includes(atkPos_y)){
+                acc.push(currentShip)
+                return acc
+            } else {
+                return acc
+            }
+        } else {
+            return acc
+        }
+    }, []);
+
+    console.log(`Correct Ship: ${correctShip}`);
+    return correctShip[0]
+
+    // ships.forEach(shipObject => {
+    //     if (shipObject.direction == 'horizontal'){
+    //             // create an array of all places 
+    //             // posX is an array of all X places the ship occupies
+    //             let posY = direction.position_y ;
+    //             let posX = [];   
+                
+    //             for (let i = 0; i < direction.length; i++) posX.push(i + shipObject.position_x)
+                
+    //             if (atkPos_y == posY && posX.includes(atkPos_x)){
+    //                 return shipObject;
+    //             }
+    //         } else { 
+    //             let posX = shipObject.position_x;
+    //             // posY is an array of all Y places the ship occupies
+    //             let posY = [];
+
+    //             for (let i = 0; i < shipObject.length; i++) posY.push(i + shipObject.position_y)
+
+    //             if (atkPos_x == posX && posY.includes(atkPos_y)){
+    //                 return shipObject;
+    //             }
+
+    //         }
+    // });
+
+}
 
 //generates an 2d array 
 const generateArray = (vertical, horizontal) => {
