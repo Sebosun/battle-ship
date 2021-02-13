@@ -1,7 +1,7 @@
 const Gameboard = require('../Gameboard');
 const ShipFactory = require('../shipFactory');
 
-test('if arrays generates correctly', () => {
+xtest('if arrays generates correctly', () => {
     let gameBrd = Gameboard(10, 10);
     expect(gameBrd.board).toStrictEqual(
         [
@@ -20,7 +20,7 @@ test('if arrays generates correctly', () => {
 });
 
 
-test('if array generates correctly', () => {
+xtest('if array generates correctly', () => {
     let gameBrd = Gameboard(10, 9);
     expect(gameBrd.board).toStrictEqual(
         [
@@ -37,7 +37,7 @@ test('if array generates correctly', () => {
     );
 });
 
-test('if ships are being mapped onto the map', () => {
+xtest('if ships are being mapped onto the map', () => {
     let gameBoard = Gameboard(10, 10);
     // board.placeShip(position_y, position_x, length)
     gameBoard.placeShip(0, 0 , {length: 5}, 'horizontal');
@@ -58,7 +58,7 @@ test('if ships are being mapped onto the map', () => {
     );
 })
 
-test('if ships are being mapped onto the map', () => {
+xtest('if ships are being mapped onto the map', () => {
     let gameBoard = Gameboard(10, 10);
     // board.placeShip(position_y, position_x, length)
     gameBoard.placeShip(1,  1,  {length: 5}, 'horizontal');
@@ -121,7 +121,7 @@ xtest('if ships are being mapped onto the map', () => {
     );
 })
 
-test('if ships are being mapped onto the map', () => {
+xtest('if ships are being mapped onto the map', () => {
     let gameBoard = Gameboard(10, 10);
     
     // board.placeShip(position_y, position_x, length)
@@ -209,7 +209,7 @@ test("receive attack on a vertical ship and check if the ship is sunk", () => {
 });
 
 
-xtest("if ships take dmg, but on more than one position", () => {
+test("if ships take dmg, but on more than one position", () => {
     
     let gameBoard = Gameboard(10, 10);
     let newShip = ShipFactory(3);
