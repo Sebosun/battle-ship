@@ -8,9 +8,7 @@ const Gameboard = (x_axis, y_axis) => {
 
     let placeShip = (position_y, position_x, ship, direction) => {
 
-        
-        // thinking of doing input verification before even calling this method 
-        // this is doubtful, makes me anxious rethink
+        // TODO: Input verification, checking if ship already exists at a given position
 
         ships.push({
             position_x,
@@ -19,7 +17,6 @@ const Gameboard = (x_axis, y_axis) => {
             direction
 
         });
-
         // at the initialization here, note lenght, direction and set up pos_y max, posy_y min etc
         let pos_y = position_y;
         let pos_x = position_x;
@@ -29,15 +26,15 @@ const Gameboard = (x_axis, y_axis) => {
                 board[pos_y][pos_x] = "X";
                 pos_x += 1;
             }
+            console.log(board);
         } else if (direction === 'vertical') {
             for (let i = 0; i < ship.length; i++) {
                 board[pos_y][pos_x] = "X";
                 pos_y += 1;
             }  
+            console.log(board);
         } else { return -1 }
     }
-
-
 
     const receiveAttack = (atkPos_y, atkPos_x) => {
         if (board[atkPos_y][atkPos_x] === "X") {
@@ -47,8 +44,12 @@ const Gameboard = (x_axis, y_axis) => {
                 //compare ships starting position with the attack position
                 // so     // [Y, 4] // [Y, 3] - [Y, 6]
                 shipUnderAttack.ship.hit( atkPos_x - shipUnderAttack.position_x );
+                board[atkPos_y][atkPos_x] = "H";
+                console.log(board);
             } else {
                 shipUnderAttack.ship.hit( atkPos_y - shipUnderAttack.position_y );
+                board[atkPos_y][atkPos_x] = "H";
+                console.log(board);
             }
         }
         else {
@@ -56,7 +57,17 @@ const Gameboard = (x_axis, y_axis) => {
         }
     }
 
-    return { board, placeShip, receiveAttack, ships };
+    const areShipsSunk = () => {
+        let arrSunk = [];
+
+        ships.forEach(shipObj => {
+            arrSunk.push(shipObj.ship.isSunk());
+        })
+
+        return arrSunk.every(value => value);
+    }
+
+    return { board, placeShip, receiveAttack, ships, areShipsSunk };
 }
 
 const checkAttackPos = (atkPos_x) =>{
@@ -66,15 +77,13 @@ const checkAttackPos = (atkPos_x) =>{
     return atkPos_x - shipStartPlace
 }
 
-// let newShip = ShipFactory(10);
+// determines which ship is being attacked based on the attack position given
 const determineShip = (atkPos_y, atkPos_x, ships) => {
     // loop over every ship
     // use array.prototype.reduce to loop over each item and return only when it matches the pattern
     // if all goes well, it should return only 1 item 
     //    console.log(array1.reduce((accumulator, currentValue) => accumulator + currentValue));
     let correctShip = ships.reduce((acc, currentShip) => { 
-        // console.log(acc, currentShip)
-        // console.log(`Reading cur ship pos ${currentShip.direction}`)
         console.log(`Current ship Y ${currentShip.position_y} X ${currentShip.position_x}`)
         if (currentShip.direction == 'horizontal'){
             let posY = currentShip.position_y;
@@ -82,8 +91,6 @@ const determineShip = (atkPos_y, atkPos_x, ships) => {
             
             for (let i = 0; i < currentShip.ship.length; i++) posX.push(i + currentShip.position_x)
             console.log(`PosY: ${posY}  PosX:  ${posX} atkPosY: ${atkPos_y} atkPosX: ${atkPos_x}`)
-            // It seems like the way i check if the ship is being attacked is wrong
-            // cuz it doesnt even get to this if
             if (atkPos_y == posY && posX.includes(atkPos_x)){
                 acc.push(currentShip)
                 return acc
@@ -91,8 +98,8 @@ const determineShip = (atkPos_y, atkPos_x, ships) => {
                 return acc
             }
         } else if (currentShip.direction == 'vertical'){
-            let posX = currentShip.position_x;
             // posY is an array of all Y places the ship occupies
+            let posX = currentShip.position_x;
             let posY = [];
             
             for (let i = 0; i < currentShip.ship.length; i++) posY.push(i + currentShip.position_y)
@@ -109,7 +116,7 @@ const determineShip = (atkPos_y, atkPos_x, ships) => {
         }
     }, []);
 
-    console.log(`Correct Ship: ${correctShip}`);
+    
     return correctShip[0]
 }
 

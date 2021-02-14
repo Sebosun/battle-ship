@@ -58,7 +58,7 @@ xtest('if ships are being mapped onto the map', () => {
     );
 })
 
-xtest('if ships are being mapped onto the map', () => {
+test('if ships are being mapped onto the map', () => {
     let gameBoard = Gameboard(10, 10);
     // board.placeShip(position_y, position_x, length)
     gameBoard.placeShip(1,  1,  {length: 5}, 'horizontal');
@@ -79,7 +79,7 @@ xtest('if ships are being mapped onto the map', () => {
     );
 })
 
-xtest('if ships are being mapped onto the map', () => {
+test('if ships are being mapped onto the map', () => {
     let gameBoard = Gameboard(10, 10);
     // board.placeShip(position_y, position_x, length)
     gameBoard.placeShip(9, 5, {length: 4}, 'horizontal');
@@ -95,7 +95,7 @@ xtest('if ships are being mapped onto the map', () => {
             [ "",  "",  "",  "",  "",  "",  "",  "",  "",  ""],
             [ "",  "",  "",  "",  "",  "",  "",  "",  "",  ""],
             [ "",  "",  "",  "",  "",  "",  "",  "",  "",  ""],
-            [ "",  "",  "",  "",  "X",  "X",  "X",  "X",  "",  ""],
+            [ "",  "",  "",  "",  "",  "X",  "X",  "X",  "X",  ""],
         ]
     );
 })
@@ -121,7 +121,7 @@ xtest('if ships are being mapped onto the map', () => {
     );
 })
 
-xtest('if ships are being mapped onto the map', () => {
+test('if ships are being mapped onto the map', () => {
     let gameBoard = Gameboard(10, 10);
     
     // board.placeShip(position_y, position_x, length)
@@ -144,20 +144,20 @@ xtest('if ships are being mapped onto the map', () => {
     );
 })
 
-xtest('if ships are being mapped onto the map', () => {
+test('if ships are being mapped onto the map', () => {
     let gameBoard = Gameboard(10, 10);
     // board.placeShip(position_y, position_x, length)
     gameBoard.placeShip(0, 5, {length: 4}, 'vertical');
     gameBoard.placeShip(5, 7, {length: 3}, 'horizontal');
-    gameBoard.placeShip(7, 3, {length: 3}, 'horizontal');
+    gameBoard.placeShip(8, 3, {length: 3}, 'horizontal');
      // console.log(gameBoard);
     expect(gameBoard.board).toStrictEqual(
         [
-            [ "",  "",  "",  "",  "X",  "",  "",  "",  "",  ""],
-            [ "",  "",  "",  "",  "X",  "",  "",  "",  "",  ""],
-            [ "",  "",  "",  "",  "X",  "",  "",  "",  "",  ""],
-            [ "",  "",  "",  "",  "X",  "",  "",  "",  "",  ""],
-            [ "",  "",  "",  "",  "X",  "",  "",  "",  "",  ""],
+            [ "",  "",  "",  "",  "",  "X",  "",  "",  "",  ""],
+            [ "",  "",  "",  "",  "",  "X",  "",  "",  "",  ""],
+            [ "",  "",  "",  "",  "",  "X",  "",  "",  "",  ""],
+            [ "",  "",  "",  "",  "",  "X",  "",  "",  "",  ""],
+            [ "",  "",  "",  "",  "",  "",  "",  "",  "",  ""],
             [ "",  "",  "",  "",  "",  "",  "",  "X",  "X",  "X"],
             [ "",  "",  "",  "",  "",  "",  "",  "",  "",  ""],
             [ "",  "",  "",  "",  "",  "",  "",  "",  "",  ""],
@@ -222,4 +222,46 @@ test("if ships take dmg, but on more than one position", () => {
     expect( gameBoard.ships[0].ship.isSunk() ).toBe(true);
 });
 
+test("tests if the areShipsSunk returns bool", () => {
 
+    let gameBoard = Gameboard(10,10);
+    let newShip = ShipFactory(3);
+    let newShip2 = ShipFactory(4);
+    let newShip3 = ShipFactory(5);
+
+    gameBoard.placeShip(0, 0, newShip, 'horizontal');
+    gameBoard.receiveAttack(0, 0);
+    gameBoard.receiveAttack(0, 1);
+    gameBoard.receiveAttack(0, 2);
+    gameBoard.placeShip(1, 1, newShip2, 'vertical');
+    gameBoard.receiveAttack(1, 1);
+    gameBoard.receiveAttack(2, 1);
+    gameBoard.receiveAttack(3, 1);
+    gameBoard.receiveAttack(4, 1);
+    gameBoard.placeShip(4, 4, newShip3, 'horizontal');
+    gameBoard.receiveAttack(4, 4);
+    gameBoard.receiveAttack(4, 5);
+    gameBoard.receiveAttack(4, 6);
+    gameBoard.receiveAttack(4, 7);
+    gameBoard.receiveAttack(4, 8);
+
+    expect(gameBoard.areShipsSunk() ).toBe(true);
+});
+
+test("tests if the areShipsSunk returns bool", () => {
+
+    let gameBoard = Gameboard(10,10);
+    let newShip = ShipFactory(3);
+    let newShip2 = ShipFactory(4);
+    let newShip3 = ShipFactory(5);
+
+    gameBoard.placeShip(0, 0, newShip, 'horizontal');
+    gameBoard.receiveAttack(0, 0);
+    gameBoard.receiveAttack(0, 1);
+    gameBoard.receiveAttack(0, 2);
+    gameBoard.placeShip(1, 1, newShip2, 'vertical');
+    gameBoard.placeShip(4, 4, newShip3, 'horizontal');
+
+
+    expect(gameBoard.areShipsSunk() ).toBe(false);
+});
