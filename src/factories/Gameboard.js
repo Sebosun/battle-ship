@@ -26,13 +26,11 @@ const Gameboard = (x_axis, y_axis) => {
                 board[pos_y][pos_x] = "X";
                 pos_x += 1;
             }
-            console.log(board);
         } else if (direction === 'vertical') {
             for (let i = 0; i < ship.length; i++) {
                 board[pos_y][pos_x] = "X";
                 pos_y += 1;
             }  
-            console.log(board);
         } else { return -1 }
     }
 
@@ -45,11 +43,10 @@ const Gameboard = (x_axis, y_axis) => {
                 // so     // [Y, 4] // [Y, 3] - [Y, 6]
                 shipUnderAttack.ship.hit( atkPos_x - shipUnderAttack.position_x );
                 board[atkPos_y][atkPos_x] = "H";
-                console.log(board);
             } else {
                 shipUnderAttack.ship.hit( atkPos_y - shipUnderAttack.position_y );
                 board[atkPos_y][atkPos_x] = "H";
-                console.log(board);
+                // console.log(board);
             }
         }
         else {
@@ -57,6 +54,8 @@ const Gameboard = (x_axis, y_axis) => {
         }
     }
 
+    // loops over every ship and checks if all have been sunk
+    // returns a boolean
     const areShipsSunk = () => {
         let arrSunk = [];
 
@@ -82,15 +81,14 @@ const determineShip = (atkPos_y, atkPos_x, ships) => {
     // loop over every ship
     // use array.prototype.reduce to loop over each item and return only when it matches the pattern
     // if all goes well, it should return only 1 item 
-    //    console.log(array1.reduce((accumulator, currentValue) => accumulator + currentValue));
     let correctShip = ships.reduce((acc, currentShip) => { 
-        console.log(`Current ship Y ${currentShip.position_y} X ${currentShip.position_x}`)
+        // console.log(`Current ship Y ${currentShip.position_y} X ${currentShip.position_x}`)
         if (currentShip.direction == 'horizontal'){
             let posY = currentShip.position_y;
             let posX = [];
             
             for (let i = 0; i < currentShip.ship.length; i++) posX.push(i + currentShip.position_x)
-            console.log(`PosY: ${posY}  PosX:  ${posX} atkPosY: ${atkPos_y} atkPosX: ${atkPos_x}`)
+            // console.log(`PosY: ${posY}  PosX:  ${posX} atkPosY: ${atkPos_y} atkPosX: ${atkPos_x}`)
             if (atkPos_y == posY && posX.includes(atkPos_x)){
                 acc.push(currentShip)
                 return acc
@@ -104,7 +102,7 @@ const determineShip = (atkPos_y, atkPos_x, ships) => {
             
             for (let i = 0; i < currentShip.ship.length; i++) posY.push(i + currentShip.position_y)
 
-            console.log(`PosY: ${posY}  PosX:  ${posX} atkPosY: ${atkPos_y} atkPosX: ${atkPos_x}`)
+            // console.log(`PosY: ${posY}  PosX:  ${posX} atkPosY: ${atkPos_y} atkPosX: ${atkPos_x}`)
             if (atkPos_x == posX && posY.includes(atkPos_y)){
                 acc.push(currentShip)
                 return acc

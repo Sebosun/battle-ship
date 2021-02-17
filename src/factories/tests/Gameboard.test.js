@@ -41,7 +41,6 @@ xtest('if ships are being mapped onto the map', () => {
     let gameBoard = Gameboard(10, 10);
     // board.placeShip(position_y, position_x, length)
     gameBoard.placeShip(0, 0 , {length: 5}, 'horizontal');
-    //  // console.log(gameBoard.board);
     expect(gameBoard.board).toStrictEqual(
         [
             ["X",  "X",  "X",  "X",  "X",  "",  "",  "",  "",  ""],
@@ -62,7 +61,6 @@ test('if ships are being mapped onto the map', () => {
     let gameBoard = Gameboard(10, 10);
     // board.placeShip(position_y, position_x, length)
     gameBoard.placeShip(1,  1,  {length: 5}, 'horizontal');
-     // console.log(gameBoard.board);
     expect(gameBoard.board).toStrictEqual(
         [
             [ "",  "",  "",  "",  "",  "",  "",  "",  "",  ""],
@@ -83,7 +81,6 @@ test('if ships are being mapped onto the map', () => {
     let gameBoard = Gameboard(10, 10);
     // board.placeShip(position_y, position_x, length)
     gameBoard.placeShip(9, 5, {length: 4}, 'horizontal');
-     // console.log(gameBoard.board);
     expect(gameBoard.board).toStrictEqual(
         [
             [ "",  "",  "",  "",  "",  "",  "",  "",  "",  ""],
@@ -104,7 +101,6 @@ xtest('if ships are being mapped onto the map', () => {
     let gameBoard = Gameboard(10, 10);
     // board.placeShip(position_y, position_x, length)
     gameBoard.placeShip(0, 0 , {length: 4}, 'vertical');
-     // console.log(gameBoard);
     expect(gameBoard.board).toStrictEqual(
         [
             ["X",  "",  "",  "",  "",  "",  "",  "",  "",  ""],
@@ -127,7 +123,6 @@ test('if ships are being mapped onto the map', () => {
     // board.placeShip(position_y, position_x, length)
     gameBoard.placeShip(0, 0, {length: 4}, 'vertical');
     gameBoard.placeShip(3, 3, {length: 3}, 'horizontal');
-     // console.log(gameBoard);
     expect(gameBoard.board).toStrictEqual(
         [
             ["X",  "",  "",  "",  "",  "",  "",  "",  "",  ""],
@@ -150,7 +145,6 @@ test('if ships are being mapped onto the map', () => {
     gameBoard.placeShip(0, 5, {length: 4}, 'vertical');
     gameBoard.placeShip(5, 7, {length: 3}, 'horizontal');
     gameBoard.placeShip(8, 3, {length: 3}, 'horizontal');
-     // console.log(gameBoard);
     expect(gameBoard.board).toStrictEqual(
         [
             [ "",  "",  "",  "",  "",  "X",  "",  "",  "",  ""],
