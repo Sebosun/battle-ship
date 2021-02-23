@@ -20,6 +20,6 @@ const ShipFactory = (len) => {
 
 // module.exports = shipFactory;
 
-module.exports = ShipFactory;
+// module.exports = ShipFactory;
 
-// export default ShipFactory;
+export default ShipFactory;

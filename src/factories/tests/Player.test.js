@@ -1,4 +1,5 @@
-const Player = require('../Player');
+// const Player = require('../Player');
+import Player from "../Player"
 
 beforeEach(() => {
     jest.spyOn(global.Math, 'random').mockReturnValue(0.123456789);
@@ -72,7 +73,7 @@ test(`attackEnemyBoard should return false if place under
     expect(playerOne.attackEnemyBoard(1,1)).toBe(false);
 })
 
-test(`tests makeRandomMove`, () =>{
+test(`checks if makeRandomMove correctly calls attackEnemyBoard`, () =>{
     let boardOne = [
         [ "X",  "",  "",  "",  "O",  "O",  "O",  "O",  "O",  "O"],
         [ "X",  "",  "",  "",  "O",  "O",  "O",  "O",  "O",  "O"],
@@ -91,7 +92,30 @@ test(`tests makeRandomMove`, () =>{
             receiveAttack: (y, x) => boardOne[y][x] = 'H'},
             '',
         );
-        playerOne.makeRandomMove();
+    playerOne.makeRandomMove();
+    console.log(boardOne);
     expect(boardOne[1][1]).toBe("H");
 })
 
+// test(`tests if random move returns false if fails`, () =>{
+//     let boardOne = [
+//         [ "H",  "",  "",  "",  "O",  "O",  "O",  "O",  "O",  "O"],
+//         [ "H",  "",  "",  "",  "O",  "O",  "O",  "O",  "O",  "O"],
+//         [ "H",  "",  "",  "",  "O",  "O",  "O",  "O",  "O",  "O"],
+//         [ "",  "",  "",  "",  "",  "",  "",  "",  ""],
+//         [ "",  "",  "",  "",  "",  "",  "",  "",  "",  ""],
+//         [ "",  "",  "",  "",  "",  "",  "",  "",  "",  ""],
+//         [ "",  "",  "",  "",  "",  "",  "",  "",  "",  ""],
+//         [ "",  "",  "",  "",  "",  "",  "",  "",  "",  ""],
+//         [ "",  "",  "",  "",  "",  "",  "",  "",  "",  ""],
+//         [ "",  "",  "",  "",  "",  "",  "",  "",  "",  ""],
+//     ]
+//     let playerOne = Player(
+//             {}, 
+//             {board: boardOne,
+//             receiveAttack: (y, x) => boardOne[y][x] = 'H'},
+//             '',
+//         );
+//         playerOne.makeRandomMove();
+//     expect(boardOne[1][1]).toBe("H");
+// })

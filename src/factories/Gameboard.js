@@ -136,8 +136,7 @@ const genEmptyElems = (horizontal) => {
 
 
 
-module.exports = Gameboard;
-
+export default Gameboard;
 
 
 

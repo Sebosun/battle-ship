@@ -10,7 +10,7 @@ const Player = (playerGameboard, enemyGameboard, ships) => {
         let randX = randomMove();
         console.log(randY, randX);       
         
-       while(!attackEnemyBoard(randY, randX)){
+        while(!attackEnemyBoard(randY, randX)){
            randY = randomMove();
            randX = randomMove();
            console.log(randY, randX);
@@ -39,4 +39,5 @@ let randomMove = () =>{
    return Math.floor(Math.random() * Math.floor(10))
 }
 
-module.exports = Player;
+// module.exports = Player;
+export default Player;

@@ -1,5 +1,7 @@
-const Gameboard = require('../Gameboard');
-const ShipFactory = require('../shipFactory');
+// const Gameboard = require('../Gameboard');
+// const ShipFactory = require('../shipFactory');
+import Gameboard from "../Gameboard";
+import ShipFactory from "../shipFactory";
 
 xtest('if arrays generates correctly', () => {
     let gameBrd = Gameboard(10, 10);
