@@ -17,6 +17,7 @@ const Player = (playerGameboard, enemyGameboard, ships) => {
        }
     };
 
+    
     let placePlayerShip = (x, y, ship, direction) => {
         playerGameboard.placeShip(x, y, ship, direction);
     };
@@ -25,7 +26,7 @@ const Player = (playerGameboard, enemyGameboard, ships) => {
     // returns true or false, depending whether the move is valid and has been made
     // "O" indicates that the position has already been struck
     const attackEnemyBoard = (y, x) => {
-        if (enemyGameboard.board[y][x] != "O" && enemyGameboard.board[y][x] != "H"){
+        if (enemyGameboard.board[y][x] !== "O" && enemyGameboard.board[y][x] !== "H"){
             enemyGameboard.receiveAttack(y, x);
             return true
         } else {

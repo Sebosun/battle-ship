@@ -1,5 +1,3 @@
-const ShipFactory = require("./shipFactory");
-
 const Gameboard = (x_axis, y_axis) => {
     let ships = []
 
@@ -34,11 +32,14 @@ const Gameboard = (x_axis, y_axis) => {
         } else { return -1 }
     }
 
+    // takes in y and x coordinates and if on the position attacked there's X
+    // "attacks" that ship and marks it as "H" (hit)
+    // otherwise marks the field as "O"
     const receiveAttack = (atkPos_y, atkPos_x) => {
         if (board[atkPos_y][atkPos_x] === "X") {
 
             let shipUnderAttack = determineShip(atkPos_y, atkPos_x, ships);
-            if (shipUnderAttack.direction == 'horizontal') {  
+            if (shipUnderAttack.direction === 'horizontal') {  
                 //compare ships starting position with the attack position
                 // so     // [Y, 4] // [Y, 3] - [Y, 6]
                 shipUnderAttack.ship.hit( atkPos_x - shipUnderAttack.position_x );
@@ -69,12 +70,12 @@ const Gameboard = (x_axis, y_axis) => {
     return { board, placeShip, receiveAttack, ships, areShipsSunk };
 }
 
-const checkAttackPos = (atkPos_x) =>{
-    // [Y, 4]
-    // [Y, 3] - [Y, 6]
-    // we pressupose here that we know which ship we're attacking
-    return atkPos_x - shipStartPlace
-}
+// const checkAttackPos = (atkPos_x) =>{
+//     // [Y, 4]
+//     // [Y, 3] - [Y, 6]
+//     // we pressupose here that we know which ship we're attacking
+//     return atkPos_x - shipStartPlace
+// }
 
 // determines which ship is being attacked based on the attack position given
 const determineShip = (atkPos_y, atkPos_x, ships) => {
@@ -83,19 +84,19 @@ const determineShip = (atkPos_y, atkPos_x, ships) => {
     // if all goes well, it should return only 1 item 
     let correctShip = ships.reduce((acc, currentShip) => { 
         // console.log(`Current ship Y ${currentShip.position_y} X ${currentShip.position_x}`)
-        if (currentShip.direction == 'horizontal'){
+        if (currentShip.direction === 'horizontal'){
             let posY = currentShip.position_y;
             let posX = [];
             
             for (let i = 0; i < currentShip.ship.length; i++) posX.push(i + currentShip.position_x)
             // console.log(`PosY: ${posY}  PosX:  ${posX} atkPosY: ${atkPos_y} atkPosX: ${atkPos_x}`)
-            if (atkPos_y == posY && posX.includes(atkPos_x)){
+            if (atkPos_y === posY && posX.includes(atkPos_x)){
                 acc.push(currentShip)
                 return acc
             } else {
                 return acc
             }
-        } else if (currentShip.direction == 'vertical'){
+        } else if (currentShip.direction === 'vertical'){
             // posY is an array of all Y places the ship occupies
             let posX = currentShip.position_x;
             let posY = [];
@@ -103,7 +104,7 @@ const determineShip = (atkPos_y, atkPos_x, ships) => {
             for (let i = 0; i < currentShip.ship.length; i++) posY.push(i + currentShip.position_y)
 
             // console.log(`PosY: ${posY}  PosX:  ${posX} atkPosY: ${atkPos_y} atkPosX: ${atkPos_x}`)
-            if (atkPos_x == posX && posY.includes(atkPos_y)){
+            if (atkPos_x === posX && posY.includes(atkPos_y)){
                 acc.push(currentShip)
                 return acc
             } else {

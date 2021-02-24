@@ -1,20 +1,27 @@
+import React, {useState} from "react";
 import './App.css';
 import './factories/shipFactory'
-import ShipFactory from './factories/shipFactory.js';
+import Gameboard from "./factories/Gameboard"
+import ShipFactory from "./factories/shipFactory.js";
+import Player from "./factories/Player";
+import DrawBoard from "./components/DrawBoard"
 
 function App() {
 
-  // console.log(ShipFactory);
-  // let ship1 = ShipFactory(2);
+  let [PlayerGameboard, setPlayerBoard] = useState(Gameboard(10,10));
+  let [NPCGameboard, setNPCGameboard] = useState(Gameboard(10,10));
+ 
+  NPCGameboard.receiveAttack(1,1);
+  console.log(NPCGameboard.board);
 
-  // ship1.hit(0);
-  // ship1.hit(0);
-  // console.log(ship1.isSunk())
 
 
+  // The idea is that board will be forwarded to components, once the state changes, the board will redraw
   return (
     <div className="App">
-
+      <DrawBoard 
+        board={PlayerGameboard.board}
+      />
     </div>
   );
 }
